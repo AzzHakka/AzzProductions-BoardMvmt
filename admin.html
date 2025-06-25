@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Contrôle</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      margin: 1rem;
+      font-size: 1.2rem;
+      background: #1db954;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Envoyer une commande</h1>
+  <button onclick="send('Sautez !')">Sautez !</button>
+  <button onclick="send('Dansez !')">Dansez !</button>
+  <button onclick="send('Figez-vous !')">Figez-vous !</button>
+  <button onclick="send('Silence !')">Silence !</button>
+  <button onclick="send('')">Effacer</button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "TA_CLE",
+      authDomain: "TON_PROJET.firebaseapp.com",
+      databaseURL: "https://TON_PROJET.firebaseio.com",
+      projectId: "TON_PROJET",
+      storageBucket: "TON_PROJET.appspot.com",
+      messagingSenderId: "TON_ID",
+      appId: "TON_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const msgRef = ref(db, "command");
+
+    window.send = (txt) => {
+      set(msgRef, txt);
+    };
+  </script>
+</body>
+</html>
